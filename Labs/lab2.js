@@ -70,8 +70,8 @@ function findPhoneByName(name) {
 
 // Завдання 10: Пошук у хеш-таблиці (довіднику) через hash[key]
 const phonebookHash = {
-  'Marcus Aurelius': '+380445554433',
-  'Antonin': '+380445554444'
+  'Marc': '+380445554433',
+  'Anton': '+380445554444'
 };
 
 function findPhoneByNameHash(name) {
