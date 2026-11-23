@@ -1,8 +1,8 @@
-// Завдання 1
+// ЗАВДАННЯ 1. PIPE — композиція зліва направо
+
 const inc = x => ++x;
 const twice = x => x * 2;
 const cube = x => x ** 3;
-
 
 function pipe(...fns) {
 
@@ -16,30 +16,23 @@ function pipe(...fns) {
     };
 }
 
+const pipeResult = pipe(inc, twice, cube);
 
-const f = pipe(inc, twice, cube);
+console.log('Завдання 1:', pipeResult(5)); // 1728
 
-console.log(f(5)); // 1728
+const pipeTest = pipe(inc, inc);
 
-
-const g = pipe(inc, inc);
-
-console.log(g(7)); // 9
-
+console.log('Додаткова перевірка:', pipeTest(7)); // 9
 
 try {
-    const h = pipe(inc, 7, cube);
+    pipe(inc, 7, cube);
 } catch (error) {
-    console.log(error.message);
+    console.log('Помилка:', error.message);
 }
 
-// Завдання 2
+// ЗАВДАННЯ 2. COMPOSE — композиція справа наліво
 
 const EventEmitter = require('events');
-
-const inc = x => ++x;
-const twice = x => x * 2;
-const cube = x => x ** 3;
 
 function compose(...fns) {
 
@@ -48,6 +41,7 @@ function compose(...fns) {
     }
 
     const emitter = new EventEmitter();
+
 
     function composed(...args) {
 
@@ -79,19 +73,18 @@ function compose(...fns) {
 
     return composed;
 }
+const composeResult = compose(inc, twice, cube);
 
-const f = compose(inc, twice, cube);
-
-console.log(f(2)); // 17
+console.log('Завдання 2:', composeResult(2)); // 17
 
 const errorFunction = x => {
     throw new Error('Сталася помилка!');
 };
 
-const g = compose(inc, errorFunction, cube);
+const errorComposeResult = compose(inc, errorFunction, cube);
 
-g.on('error', error => {
+errorComposeResult.on('error', error => {
     console.log('Помилка:', error.message);
 });
 
-console.log(g(2)); // undefined
+console.log('Результат після помилки:', errorComposeResult(2)); // undefined
